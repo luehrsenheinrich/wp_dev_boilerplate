@@ -1,0 +1,2 @@
+# Do not ship node modules
+/node_modules/
