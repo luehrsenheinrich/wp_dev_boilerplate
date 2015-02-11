@@ -6,11 +6,13 @@
 if(!defined('WP_THEME_URL')) {
 	define( 'WP_THEME_URL', get_bloginfo('stylesheet_directory'));
 }
+
 if(!defined('WP_JS_URL')) {
 	define( 'WP_JS_URL' , get_bloginfo('template_url').'/js');
-}	
+}
+
 if(!defined('LANG_NAMESPACE')){
-	define( 'LANG_NAMESPACE', "lh");	
+	define( 'LANG_NAMESPACE', "lh");
 }
 
 
@@ -27,33 +29,32 @@ foreach ( glob( dirname( __FILE__ )."/inc/*.php" ) as $file )
  *
  * @author Hendrik Luehrsen
  * @since 1.0
- * 
+ *
  * @return void
  */
 function lh_enqueue_scripts(){
 	// CSS
-	wp_enqueue_style('style', WP_THEME_URL.'/style_less.css', NULL, '2.0', 'all');
-	
+	wp_enqueue_style('style', WP_THEME_URL.'/style.css', NULL, '1.0', 'all');
+
 	// Use the jQuery Version from Google
 	wp_deregister_script('jquery');
-	wp_register_script('jquery', ("https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"), false, '1.9.1', true);
-	
-	// Register Scripts used by the theme
-	wp_register_script('plugins', (WP_JS_URL . "/plugins.min.js"), array("jquery"), '1', true);
-	wp_register_script('main', (WP_JS_URL . "/main.min.js"), array("jquery", "plugins"), '1', true);
-	
-	wp_enqueue_script("main");
+	wp_register_script('jquery', ("https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"), false, '1.11.2', true);
+	/**/
 
+	// Register Scripts used by the theme
+	wp_register_script('main', (WP_JS_URL . "/main.min.js"), array("jquery"), '1', true);
+
+	wp_enqueue_script('main');
 }
 add_action("wp_enqueue_scripts", "lh_enqueue_scripts");
 
-/*
+/**
  * Add language support
  * Called by action "after_setup_theme"
  *
  * @author Hendrik Luehrsen
  * @since 1.0
- * 
+ *
  * @return void
  */
 function lh_load_theme_textdomain(){

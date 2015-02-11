@@ -38,7 +38,6 @@ module.exports = function(grunt) {
 	concat_in_order: {
 		main: {
 			files: {
-				'js/mstartup.ng.min.js': ['js/mstartup.ng.js'],
 				'js/main.min.js': ['js/main.js']
 			},
 			options: {
@@ -70,10 +69,20 @@ module.exports = function(grunt) {
 	      options: {
 	      },
 	      files: {
-	        'js/mstartup.ng.min.js': ['js/mstartup.ng.min.js'],
 	        'js/main.min.js': ['js/main.min.js']
 	      }
 	    }
+	},
+
+	// Copy
+	// Copy files from the vendor folder to need places elsewhere
+	copy: {
+		main: {
+			files: [
+				{expand: true, flatten: true, src: ['vendor/**/*.eot', 'vendor/**/*.ttf', 'vendor/**/*.woff', 'vendor/**/*.woff2'], dest: 'fonts/', filter: 'isFile'},
+				// Copy all found font files from the vendor folder to the fonts folder
+			]
+		}
 	},
 
 	// WATCHER / SERVER
@@ -100,6 +109,10 @@ module.exports = function(grunt) {
 			options: {
 				livereload: true
 			}
+		},
+		vendor: {
+			files: ['vendor/**/*'],
+			task: ['copy']
 		},
 		livereload: {
 			files: ['js/*.min.js', '**/*.php', '**/*.html'], // Watch all files

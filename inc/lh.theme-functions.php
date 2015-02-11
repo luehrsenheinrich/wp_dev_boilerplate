@@ -9,13 +9,23 @@
 class lhThemeFunctions {
 
 	function __construct() {
-		add_filter( 'admin_footer_text', 		array($this, 'lh_admin_footer') ); //change admin footer text
-		add_action( 'admin_init', 				array($this, 'lh_remove_menu_pages' ) );
-		add_action(	'admin_bar_menu', 			array($this, 'lh_change_toolbar') , 999 );
-		add_filter( 'mod_rewrite_rules', 		array($this, 'lh_htaccess_contents') );
+		$this->action_dispatcher();
+		$this->filter_dispatcher();
+	}
+
+	function action_dispatcher(){
 		add_action( 'login_enqueue_scripts', 	array($this, 'lh_login_logo' ) );
+		add_action(	'admin_bar_menu', 			array($this, 'lh_change_toolbar') , 999 );
+		add_action( 'admin_init', 				array($this, 'lh_remove_menu_pages' ) );
+	}
+
+	function filter_dispatcher(){
+		add_filter( 'admin_footer_text', 		array($this, 'lh_admin_footer') ); //change admin footer text
+		add_filter( 'mod_rewrite_rules', 		array($this, 'lh_htaccess_contents') );
 		add_filter( 'login_headerurl', 			array($this, 'lh_login_logo_url' ) );
 		add_filter( 'login_headertitle', 		array($this, 'lh_login_logo_url_title' ) );
+		add_filter( 'oembed_result',			array($this, 'change_oembed'), 10, 3 );
+		add_filter( 'login_errors',				array($this, 'login_errors'), 10 );
 	}
 
 	/**
@@ -177,6 +187,47 @@ class lhThemeFunctions {
 	 */
 	function lh_login_logo_url_title() {
 	    return 'Luehrsen // Heinrich - Agentur für Medienkommunikation';
+	}
+
+	/**
+	 * Change the embed code, so we can apply awesome css shit
+	 * Called by filter "oembed_result"
+	 *
+	 * @author Hendrik Luehrsen
+	 * @since 1.0
+	 *
+	 * @param $html string The oembed html to edit
+	 *
+	 * @return string The edited html
+	 */
+	function change_oembed($html, $url, $args){
+		$video_pattern = "#(\W|^)(youtube|vimeo)(\W|$)#";
+
+		if(preg_match($video_pattern, $url)){
+			$new_html = '<div class="clearfix"></div><div class="embed-wrapper"><div class="embed-responsive embed-responsive-16by9">'.$html.'</div></div>';
+		} else {
+			$new_html = $html;
+		}
+
+		return $new_html;
+	}
+
+	/*******************************************
+		Security functions
+	*******************************************/
+
+	public function login_errors($e){
+		global $errors;
+
+		if(isset($errors->errors['incorrect_password'])){
+			return __("<b>Error:</b> The login credentials are incorrect.", LANG_NAMESPACE);
+		}
+
+		if(isset($errors->errors['invalid_username'])){
+			return __("<b>Error:</b> The login credentials are incorrect.", LANG_NAMESPACE);
+		}
+
+		return $e;
 	}
 
 }

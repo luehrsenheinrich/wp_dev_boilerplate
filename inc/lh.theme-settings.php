@@ -237,7 +237,11 @@ class lh_settings_field {
 				$this->args['section']
 		);
 
-		register_setting($this->args['option_group'], $this->args['id'], $this->args['sanatize_callback'] );
+		if(isset($this->args['sanatize_callback'])){
+			register_setting($this->args['option_group'], $this->args['id'], $this->args['sanatize_callback'] );
+		} else {
+			register_setting($this->args['option_group'], $this->args['id'] );
+		}
 	}
 
 	/**
@@ -251,7 +255,7 @@ class lh_settings_field {
 		if($t == "text"):
 		?>
 			<fieldset>
-				<input type="text" class="all-options" name="<?=$this->args['id']?>" id="<?=$this->args['id']?>" value="<?=get_option($this->args['id'])?>">
+				<input type="text" class="all-options" name="<?=$this->args['id']?>" id="<?=$this->args['id']?>" value="<?=htmlspecialchars(get_option($this->args['id']))?>">
 				<p class="description">
 					<?php echo $this->args['description']; ?>
 				</p>
