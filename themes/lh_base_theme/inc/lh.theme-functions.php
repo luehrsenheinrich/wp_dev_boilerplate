@@ -17,6 +17,7 @@ class lhThemeFunctions {
 		add_action( 'login_enqueue_scripts', 	array($this, 'lh_login_logo' ) );
 		add_action(	'admin_bar_menu', 			array($this, 'lh_change_toolbar') , 999 );
 		add_action( 'admin_init', 				array($this, 'lh_remove_menu_pages' ) );
+		add_action( 'admin_enqueue_scripts', 	array($this, 'admin_scripts') );
 	}
 
 	function filter_dispatcher(){
@@ -228,6 +229,41 @@ class lhThemeFunctions {
 		}
 
 		return $e;
+	}
+
+	/*******************************************
+		Admin scripts
+	*******************************************/
+
+	/**
+	 * admin_scripts function.
+	 *
+	 * @access public
+	 * @return void
+	 */
+	public function admin_scripts(){
+		global $hook_suffix, $pagenow;
+
+		$scripts_are_needed_in = array(
+			'profile.php',
+			'appearance_page_lh_theme_settings'
+		);
+
+		if( in_array($hook_suffix, $scripts_are_needed_in) ){ // Make sure our scripts are only loaded, when we actually need them
+		    wp_enqueue_script( 'lh_admin', WP_THEME_URL . "/admin/admin.min.js", array( 'jquery' ), false, true );
+        }
+
+        wp_localize_script( 'lh_admin', 'lh_var',
+        array( 	'theme_url' => WP_THEME_URL,
+        		'choose_image'		=> __('Choose Image', LANG_NAMESPACE),
+        		'select_image'		=> __('Select Image', LANG_NAMESPACE),
+        ) );
+
+		if($pagenow == "themes.php") {// && $taxonomy == "brand"){
+			wp_enqueue_media();
+			wp_enqueue_style( 'wp-color-picker' );
+			wp_enqueue_script( 'wp-color-picker');
+		}
 	}
 
 }

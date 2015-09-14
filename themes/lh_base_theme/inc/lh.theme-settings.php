@@ -67,6 +67,29 @@ class lh_theme_settings {
 		);
 		$text_area_example = new lh_settings_field($args);
 
+		// default image
+		$args = array(
+			'id'				=> 'default_img_id',
+			'title'				=> __("Default Image", LANG_NAMESPACE),
+			'page'				=> 'lh_theme_settings',
+			'section'			=> 'settings_examples',
+			'description'		=> __("The default image for eg. events.", LANG_NAMESPACE),
+			'type'				=> 'image', // text, textarea, password, checkbox
+			'option_group'		=> "appearance_page_lh_theme_settings",
+		);
+		$default_img_id = new lh_settings_field($args);
+
+		// default event color
+		$args = array(
+			'id'				=> 'default_theme_color',
+			'title'				=> __("Default Color", LANG_NAMESPACE),
+			'page'				=> 'lh_theme_settings',
+			'section'			=> 'settings_examples',
+			'description'		=> __("The default color for eg. events.", LANG_NAMESPACE),
+			'type'				=> 'color', // text, textarea, password, checkbox
+			'option_group'		=> "appearance_page_lh_theme_settings",
+		);
+		$default_theme_color = new lh_settings_field($args);
 
 	}
 
@@ -292,6 +315,32 @@ class lh_settings_field {
 				wp_dropdown_categories( $args ); ?>
  				<p class="description">
 					<?php echo $this->args['description']; ?>
+				</p>
+			</fieldset>
+		<?php
+		elseif($t == "image"):
+		?>
+			<fieldset class="settings_image_picker">
+				<input type="hidden" name="<?=$this->args['id']?>" id="<?=$this->args['id']?>" class="settings_image_id" value="<?=get_option($this->args['id'])?>" />
+				<a href="#" class="button add_settings_image" data-editor="content" title="<?php _e("Add Image", LANG_NAMESPACE); ?>"> <?php _e("Add Image", LANG_NAMESPACE); ?> </a>
+				<a href="#" class="button remove_settings_image" data-editor="content" title="<?php _e("X", LANG_NAMESPACE); ?>"> <?php _e("X", LANG_NAMESPACE); ?> </a>
+				<div class="settings_image_stage" id="<?=$this->args['id']?>_stage" style="margin-top: 10px">
+					<?php
+						$thumb = wp_get_attachment_image_src(get_option($this->args['id']), "thumbnail");
+						if(is_array($thumb)){
+							?>
+								<img src="<?=$thumb[0]?>" />
+							<?php
+						}
+					?>
+				</div>
+			</fieldset>
+		<?php
+		elseif($t == "color"):
+		?>
+			<fieldset>
+				<p>
+					<input type="text" class="widefat lh_color_picker" id="cp-bg-color" name="<?=$this->args['id']?>" value="<?=get_option($this->args['id'])?>">
 				</p>
 			</fieldset>
 		<?php

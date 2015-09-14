@@ -38,7 +38,8 @@ module.exports = function(grunt) {
 	concat_in_order: {
 		main: {
 			files: {
-				'js/main.min.js': ['js/main.js']
+				'js/main.min.js': ['js/main.js'],
+				'admin/admin.min.js': ['admin/admin.js']
 			},
 			options: {
 			    extractRequired: function(filepath, filecontent) {
@@ -69,7 +70,8 @@ module.exports = function(grunt) {
 	      options: {
 	      },
 	      files: {
-	        'js/main.min.js': ['js/main.min.js']
+	        'js/main.min.js': ['js/main.min.js'],
+	        'admin/admin.min.js': ['admin/admin.min.js']
 	      }
 	    }
 	},
