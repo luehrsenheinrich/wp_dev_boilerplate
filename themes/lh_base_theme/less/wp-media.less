@@ -1,0 +1,143 @@
+/**
+ * Wordpress images and media, mostly style for code that is provided by wordpress to display and embed media
+ */
+
+/* Embedded Media */
+.embed-responsive {
+	max-width: 100%;
+	margin-bottom: @base-line-height;
+	position: relative;
+
+	&:after {
+		content: "";
+		display: block;
+		padding-bottom: 56.2%;
+	}
+
+	iframe {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		width: 100%;
+		height: 100%;
+	}
+}
+
+iframe.twitter-tweet {
+	margin: 0 auto @line-height-target !important;
+}
+
+// Wordpress Gallery
+div.gallery {
+	display: flex;
+	flex-wrap: wrap;
+	margin: 0 -15px;
+
+	.gallery-item {
+		flex: 0 0 auto;
+		padding: 0 15px;
+		margin: 0;
+		margin-bottom: @line-height-target;
+
+		.gallery-icon {
+			img {
+				width: 100%;
+				display: block;
+			}
+		}
+
+		.gallery-caption {
+			padding: 5px;
+			background: #eee;
+			.verticalRhythm(-2);
+			max-height: (@line-height-target * 1.3);
+			overflow: hidden;
+		}
+	}
+
+	&.gallery-columns-3 {
+		.gallery-item {
+			width: (100% / 3);
+		}
+	}
+
+	&.gallery-columns-4 {
+		.gallery-item {
+			width: (100% / 4);
+		}
+	}
+}
+
+/* Images from Wordpress Media */
+
+img {
+	padding: 0;
+	max-width: 100%;
+	height: auto;
+	overflow: auto;
+	display: inline-block;
+}
+
+
+// Image Captions
+.wp-caption {
+	display: table !important;
+	margin-bottom: @line-height-target;
+	max-width: 100%;
+	table-layout: fixed;
+
+	img {
+		width:100%;
+		height: auto;
+		margin: 0;
+		display: block;
+
+		&.size-medium {
+			max-width: none;
+		}
+	}
+
+	p.wp-caption-text {
+		display: table-caption;
+		caption-side: bottom;
+		margin: 0 !important;
+		background: #eee;
+		padding: 0 10px;
+		text-align: center;
+		.verticalRhythm(-2)
+	}
+
+	&.caption-size-medium {
+		max-width: 50%;
+	}
+}
+
+/* Media Alignment */
+.aligncenter {
+	margin: 0 auto 1em;
+	text-align: center;
+	position: relative;
+	display: block;
+}
+
+.alignleft {
+	float: left;
+	margin: 0 10px 1em 0;
+	max-width: 50%;
+}
+
+.alignright {
+	float: right;
+	margin: 0 0 1em 10px;
+	max-width: 50%;
+}
+
+img.size-large {
+	max-width: 100%;
+}
+
+img.size-medium {
+	max-width: 50%;
+}

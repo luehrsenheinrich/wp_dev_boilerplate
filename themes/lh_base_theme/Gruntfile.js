@@ -1,7 +1,12 @@
 module.exports = function(grunt) {
   require('jit-grunt')(grunt);
+  grunt.template.addDelimiters('underscoresaving', '<##', '##>');
+  grunt.template.setDelimiters('underscoresaving');
 
   grunt.initConfig({
+
+  	// Define variables
+    pkg:     grunt.file.readJSON("package.json"),
 
 	// LESS / CSS
 
@@ -12,7 +17,10 @@ module.exports = function(grunt) {
         options: {
           compress: true,
           yuicompress: true,
-          optimization: 2
+          optimization: 2,
+          process: function(content, path) {
+          	return grunt.template.process(content);
+          }
         },
         files: {
           "style.css": "less/style.less", // destination file and source file
@@ -20,6 +28,23 @@ module.exports = function(grunt) {
         }
       }
     },
+
+	postcss: {
+		options: {
+			map: true, // inline sourcemaps
+
+			processors: [
+				require('autoprefixer')({browsers: 'last 2 versions'}), // add vendor prefixes
+				require('cssnano')() // minify the result
+			]
+		},
+		dist: {
+			files: {
+				"style.css": "less/style.less", // destination file and source file
+				"editor-style.css": "less/editor-style.less"
+			}
+		}
+	},
 
     // JAVASCRIPT
 
@@ -100,7 +125,7 @@ module.exports = function(grunt) {
 	    },
 		less: {
 			files: ['less/**/*.less'], // which files to watch
-			tasks: ['less'],
+			tasks: ['less', 'postcss'],
 			options: {
 				// livereload: true
 			},

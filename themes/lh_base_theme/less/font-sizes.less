@@ -1,0 +1,47 @@
+// Define the font sizes (Mobile first!)
+body {
+	.verticalRhythm(-1);
+}
+
+h1 {
+	.verticalRhythm(3);
+}
+
+h2 {
+	.verticalRhythm(2);
+}
+
+h3 {
+	.verticalRhythm(1);
+}
+
+h4, h5, h6 {
+	.verticalRhythm(0);
+}
+
+// Font Sizes on tablets and above
+@media (min-width: @screen-sm-min) {
+	body {
+		.verticalRhythm(0);
+	}
+
+	h1 {
+		.verticalRhythm(4);
+	}
+
+	h2 {
+		.verticalRhythm(3);
+	}
+
+	h3 {
+		.verticalRhythm(2);
+	}
+
+	h4 {
+		.verticalRhythm(1);
+	}
+
+	h5, h6 {
+		.verticalRhythm(0);
+	}
+}

@@ -1,6 +1,8 @@
 // Color Definitions
 @brandColor:		#26b8ff;
-
+@brandColorLight:	lighten(@brandColor, 20%);
+@brandColorDark:	darken(@brandColor, 20%);
+@textColor:			#333;
 
 // Social Media Colors
 @facebookColor: 	#3b5998;
@@ -8,66 +10,83 @@
 @linkedinColor: 	#007bb6;
 @xingColor: 		#126567;
 
-// Vertical Rhytm // 16px Font Size Target // 22px Line Height Target
-@font-size-target: 		16px;
-@line-height-target: 	22px;
+// Vertical Rhytm // 18px Font Size Target // 27px Line Height Target
+@font-size-target: 		18px;
+@line-height-target: 	27px;
 @scale-factor: 			1.25;
 
-@base-font-size: @font-size-target / 2;
-@base-line-height: unit(@line-height-target / @font-size-target, "em");
+@base-line-height: unit(@line-height-target / @font-size-target, em);
 
-@h1-step: 8;
-@h1-font-size: ceil(pow(@scale-factor, @h1-step) * @base-font-size);
-@h1-line: @base-line-height / pow(@scale-factor, @h1-step) * ((pow(@scale-factor, @h1-step) * @base-font-size) / @h1-font-size);
-@h1-line-height: @h1-line * unit(ceil( (@h1-font-size / @base-font-size)  / (@base-line-height * 2) ) * 2);
-@h1-margin-top: 0 * @h1-line;
-@h1-margin-bottom: 2 * @h1-line;
+.fontSizeGrid(@step){
+	font-size: ceil(pow(@scale-factor, @step) * @font-size-target);
+}
 
-@h2-step: 6;
-@h2-font-size: ceil(pow(@scale-factor, @h2-step) * @base-font-size);
-@h2-line: @base-line-height / pow(@scale-factor, @h2-step) * ((pow(@scale-factor, @h2-step) * @base-font-size) / @h2-font-size);
-@h2-line-height: @h2-line * unit(ceil( (@h2-font-size / @base-font-size)  / (@base-line-height * 2) ) * 2);
-@h2-margin-top: 0 * @h2-line;
-@h2-margin-bottom: 2 * @h2-line;
+.lineHeightGrid(@step){
+	@font-size: ceil(pow(@scale-factor, @step) * @font-size-target);
+	@line: @base-line-height / pow(@scale-factor, @step) * ((pow(@scale-factor, @step) * @font-size-target) / @font-size);
+	@line-height: @line * unit(ceil( (@font-size / @font-size-target)  / (@base-line-height) ) );
 
-@h3-step: 4;
-@h3-font-size: ceil(pow(@scale-factor, @h3-step) * @base-font-size);
-@h3-line: @base-line-height / pow(@scale-factor, @h3-step) * ((pow(@scale-factor, @h3-step) * @base-font-size) / @h3-font-size);
-@h3-line-height: @h3-line * unit(ceil( (@h3-font-size / @base-font-size)  / (@base-line-height * 2) ) * 2);
-@h3-margin-top: 0 * @h3-line;
-@h3-margin-bottom: 2 * @h3-line;
+	line-height: @line-height;
+}
 
-@h4-step: 3;
-@h4-font-size: ceil(pow(@scale-factor, @h4-step) * @base-font-size);
-@h4-line: @base-line-height / pow(@scale-factor, @h4-step) * ((pow(@scale-factor, @h4-step) * @base-font-size) / @h4-font-size);
-@h4-line-height: @h4-line * unit(ceil( (@h4-font-size / @base-font-size)  / (@base-line-height * 2) ) * 2);
-@h4-margin-top: 0 * @h4-line;
-@h4-margin-bottom: 2 * @h4-line;
+.verticalRhythm(@step){
+	.fontSizeGrid(@step);
+	.lineHeightGrid(@step);
+}
 
-@p-step: 3;
-@p-font-size: ceil(pow(@scale-factor, @p-step) * @base-font-size);
-@p-line: @base-line-height / pow(@scale-factor, @p-step) * ((pow(@scale-factor, @p-step) * @base-font-size) / @p-font-size);
-@p-line-height: @p-line * unit(ceil( (@p-font-size / @base-font-size)  / (@base-line-height * 2) ) * 2);
-@p-margin-top: 0 * @p-line;
-@p-margin-bottom: 2 * @p-line;
+// Font Families
+@font-family-sans-serif:  Arial,"Helvetica Neue",Helvetica,sans-serif;
+@font-family-serif:  Georgia, Times, "Times New Roman", serif;
 
-@sm-step: 2;
-@sm-font-size: ceil(pow(@scale-factor, @sm-step) * @base-font-size);
-@sm-line: @base-line-height / pow(@scale-factor, @sm-step) * ((pow(@scale-factor, @sm-step) * @base-font-size) / @sm-font-size);
-@sm-line-height: @sm-line * unit(ceil( (@sm-font-size / @base-font-size)  / (@base-line-height * 2) ) * 2);
-@sm-margin-top: 0 * @sm-line;
-@sm-margin-bottom: 2 * @sm-line;
+//== Media queries breakpoints - Thanks to Bootstrap
+//
+//## Define the breakpoints at which your layout will change, adapting to different screen sizes.
 
-@s-step: 1;
-@s-font-size: ceil(pow(@scale-factor, @s-step) * @base-font-size);
-@s-line: @base-line-height / pow(@scale-factor, @s-step) * ((pow(@scale-factor, @s-step) * @base-font-size) / @s-font-size);
-@s-line-height: @s-line * unit(ceil( (@s-font-size / @base-font-size)  / (@base-line-height * 2) ) * 2);
-@s-margin-top: 0 * @s-line;
-@s-margin-bottom: 2 * @s-line;
+// Small screen / tablet
+@screen-sm-min:              768px;
 
-@xs-step: 0;
-@xs-font-size: ceil(pow(@scale-factor, @xs-step) * @base-font-size);
-@xs-line: @base-line-height / pow(@scale-factor, @xs-step) * ((pow(@scale-factor, @xs-step) * @base-font-size) / @xs-font-size);
-@xs-line-height: @xs-line * unit(ceil( (@xs-font-size / @base-font-size)  / (@base-line-height * 2) ) * 2);
-@xs-margin-top: 0 * @xs-line;
-@xs-margin-bottom: 2 * @xs-line;
+// Medium screen / desktop
+@screen-md-min:              992px;
+
+// Large screen / wide desktop
+@screen-lg-min:              1200px;
+
+// So media queries don't overlap when required, provide a maximum
+@screen-xs-max:              (@screen-sm-min - 1);
+@screen-sm-max:              (@screen-md-min - 1);
+@screen-md-max:              (@screen-lg-min - 1);
+
+//== Grid system
+//
+//## Define your custom responsive grid.
+
+//** Number of columns in the grid.
+@grid-columns:              12;
+//** Padding between columns. Gets divided in half for the left and right.
+@grid-gutter-width:         30px;
+// Navbar collapse
+//** Point at which the navbar becomes uncollapsed.
+@grid-float-breakpoint:     @screen-sm-min;
+//** Point at which the navbar begins collapsing.
+@grid-float-breakpoint-max: (@grid-float-breakpoint - 1);
+
+
+
+//== Container sizes
+//
+//## Define the maximum width of `.container` for different screen sizes.
+
+// Small screen / tablet
+@container-tablet:             (720px + @grid-gutter-width);
+//** For `@screen-sm-min` and up.
+@container-sm:                 @container-tablet;
+
+// Medium screen / desktop
+@container-desktop:            (940px + @grid-gutter-width);
+//** For `@screen-md-min` and up.
+@container-md:                 @container-desktop;
+
+// Large screen / wide desktop
+@container-large-desktop:      (1140px + @grid-gutter-width);
+//** For `@screen-lg-min` and up.
+@container-lg:                 @container-large-desktop;

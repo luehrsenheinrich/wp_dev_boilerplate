@@ -8,5 +8,8 @@
     "bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "devDependencies": {
+    "normalize.css": "~3.0.3"
+  }
 }

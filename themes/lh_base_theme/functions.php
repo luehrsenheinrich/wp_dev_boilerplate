@@ -36,11 +36,6 @@ function lh_enqueue_scripts(){
 	// CSS
 	wp_enqueue_style('style', WP_THEME_URL.'/style.css', NULL, '1.0', 'all');
 
-	// Use the jQuery Version from Google
-	wp_deregister_script('jquery');
-	wp_register_script('jquery', ("https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"), false, '1.11.2', true);
-	/**/
-
 	// Register Scripts used by the theme
 	wp_register_script('main', (WP_JS_URL . "/main.min.js"), array("jquery"), '1', true);
 
