@@ -106,7 +106,7 @@ module.exports = function(grunt) {
 	copy: {
 		main: {
 			files: [
-				{expand: true, flatten: true, src: ['vendor/**/*.eot', 'vendor/**/*.ttf', 'vendor/**/*.woff', 'vendor/**/*.woff2'], dest: 'fonts/', filter: 'isFile'},
+				{expand: true, flatten: true, src: ['node_modules/**/*.eot', 'node_modules/**/*.ttf', 'node_modules/**/*.woff', 'node_modules/**/*.woff2'], dest: 'fonts/', filter: 'isFile'},
 				// Copy all found font files from the vendor folder to the fonts folder
 			]
 		}
@@ -117,7 +117,7 @@ module.exports = function(grunt) {
     // Watch
     watch: {
 	    js: {
-		    files: ['js/**/*.js'],
+		    files: ['js/**/*.js', '!node_modules/**/*', 'bower_components/**/*'],
 		    tasks: ['handle_js'],
 			options: {
 				livereload: true
@@ -138,7 +138,7 @@ module.exports = function(grunt) {
 			}
 		},
 		vendor: {
-			files: ['vendor/**/*'],
+			files: ['node_modules/**/*'],
 			task: ['copy']
 		},
 		livereload: {

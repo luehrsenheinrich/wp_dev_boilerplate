@@ -70,7 +70,7 @@ class lh_theme_settings {
 		// default image
 		$args = array(
 			'id'				=> 'default_img_id',
-			'title'				=> __("Default Image", LANG_NAMESPACE),
+			'title'				=> __("Image", LANG_NAMESPACE),
 			'page'				=> 'lh_theme_settings',
 			'section'			=> 'settings_examples',
 			'description'		=> __("The default image for eg. events.", LANG_NAMESPACE),
