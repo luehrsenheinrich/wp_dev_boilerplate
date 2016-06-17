@@ -10,33 +10,26 @@
 @linkedinColor: 	#007bb6;
 @xingColor: 		#126567;
 
+//== Typography
+//
+//## Define the font sizes and line heights at the different break points.
+
 // Vertical Rhytm // 18px Font Size Target // 27px Line Height Target
-@font-size-target: 		18px;
-@line-height-target: 	27px;
-@scale-factor: 			1.25;
+@font-size-target-xs: 		16px;
+@line-height-target-xs: 	20px;
+@scale-factor-xs: 			1.25;
+@base-line-height-xs: 		unit(@line-height-target-xs / @font-size-target-xs, em);
 
-@base-line-height: unit(@line-height-target / @font-size-target, em);
-
-.fontSizeGrid(@step){
-	font-size: ceil(pow(@scale-factor, @step) * @font-size-target);
-}
-
-.lineHeightGrid(@step){
-	@font-size: ceil(pow(@scale-factor, @step) * @font-size-target);
-	@line: @base-line-height / pow(@scale-factor, @step) * ((pow(@scale-factor, @step) * @font-size-target) / @font-size);
-	@line-height: @line * unit(ceil( (@font-size / @font-size-target)  / (@base-line-height) ) );
-
-	line-height: @line-height;
-}
-
-.verticalRhythm(@step){
-	.fontSizeGrid(@step);
-	.lineHeightGrid(@step);
-}
+@font-size-target-sm: 		18px;
+@line-height-target-sm: 	27px;
+@scale-factor-sm: 			1.25;
+@base-line-height-sm: 		unit(@line-height-target-sm / @font-size-target-sm, em);
 
 // Font Families
-@font-family-sans-serif:  Arial,"Helvetica Neue",Helvetica,sans-serif;
+@font-family-sans-serif:  "Source Code Pro", Arial, "Helvetica Neue",Helvetica,sans-serif;
+@font-family-headlines: "Press Start 2P", "Open Sans", Arial, "Helvetica Neue", Helvetica, sans-serif;
 @font-family-serif:  Georgia, Times, "Times New Roman", serif;
+@fa-font-path: "fonts";
 
 //== Media queries breakpoints - Thanks to Bootstrap
 //
@@ -83,7 +76,7 @@
 
 // Medium screen / desktop
 @container-desktop:            (940px + @grid-gutter-width);
-//** For `@screen-md-min` and up.
+//** For `@screen-sm-min` and up.
 @container-md:                 @container-desktop;
 
 // Large screen / wide desktop

@@ -1,0 +1,13 @@
+.content-block(@spans: 1) {
+	.content-block {
+		p, h1, h2, h3, h4, h5, h6, ul, ol, dl, address, pre {
+			margin-left: unit(@spans / @grid-columns, %) * 100;
+			margin-right: unit(@spans / @grid-columns, %) * 100;
+		}
+
+		blockquote p, .post-headline {
+			margin-left: 15px;
+			margin-right: 15px;
+		}
+	}
+}
