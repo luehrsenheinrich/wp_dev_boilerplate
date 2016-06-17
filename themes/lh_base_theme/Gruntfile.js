@@ -1,5 +1,6 @@
 module.exports = function(grunt) {
   require('jit-grunt')(grunt);
+  require('time-grunt')(grunt);
   grunt.template.addDelimiters('underscoresaving', '<##', '##>');
   grunt.template.setDelimiters('underscoresaving');
 
@@ -14,49 +15,33 @@ module.exports = function(grunt) {
 	// Compile the less files
     less: {
       development: {
-        options: {
-          compress: true,
-          yuicompress: true,
-          optimization: 2,
-          process: function(content, path) {
-          	return grunt.template.process(content);
-          }
-        },
         files: {
           "style.css": "less/style.less", // destination file and source file
-          "editor-style.css": "less/editor-style.less"
+          "editor-style.css": "less/editor-style.less",
+          "admin/admin.css": "admin/less/admin.less"
         }
       }
     },
 
 	postcss: {
 		options: {
-			map: true, // inline sourcemaps
+			map: false, // inline sourcemaps
 
 			processors: [
 				require('autoprefixer')({browsers: 'last 2 versions'}), // add vendor prefixes
-				require('cssnano')() // minify the result
+				require('cssnano')
 			]
 		},
 		dist: {
 			files: {
-				"style.css": "less/style.less", // destination file and source file
-				"editor-style.css": "less/editor-style.less"
+				"style.css": "style.css", // destination file and source file
+				"editor-style.css": "editor-style.css",
+				"admin/admin.css": "admin/admin.css"
 			}
 		}
 	},
 
     // JAVASCRIPT
-
-    // JS HINT
-    // How's our code quality
-    jshint: {
-	    options: {
-			reporter: require('jshint-stylish'),
-			force: true,
-	    },
-    	all: ['js/**/*.js', '!js/**/*.min.js', '!js/bootstrap/**/*.js', '!js/vendor/**/*.js']
-  	},
 
     // Concat
     // Join together the needed files.
@@ -101,23 +86,14 @@ module.exports = function(grunt) {
 	    }
 	},
 
-	// Copy
-	// Copy files from the vendor folder to need places elsewhere
-	copy: {
-		main: {
-			files: [
-				{expand: true, flatten: true, src: ['node_modules/**/*.eot', 'node_modules/**/*.ttf', 'node_modules/**/*.woff', 'node_modules/**/*.woff2'], dest: 'fonts/', filter: 'isFile'},
-				// Copy all found font files from the vendor folder to the fonts folder
-			]
-		}
-	},
-
 	// WATCHER / SERVER
 
     // Watch
     watch: {
+    	options: { interval: 5007 },
+
 	    js: {
-		    files: ['js/**/*.js', '!node_modules/**/*', 'bower_components/**/*'],
+		    files: ['js/**/*.js', '!js/**/*.min.js', '!node_modules/**/*', '!bower_components/**/*'],
 		    tasks: ['handle_js'],
 			options: {
 				livereload: true
@@ -125,24 +101,20 @@ module.exports = function(grunt) {
 	    },
 		less: {
 			files: ['less/**/*.less'], // which files to watch
-			tasks: ['less', 'postcss'],
+			tasks: ['handle_less'],
 			options: {
 				// livereload: true
 			},
 		},
 		css: {
-			files: ['**/*.css', '*.css', ],
+			files: ['**/*.css', '*.css', '!node_modules/**/*', '!bower_components/**/*'],
 			tasks: [],
 			options: {
 				livereload: true
 			}
 		},
-		vendor: {
-			files: ['node_modules/**/*'],
-			task: ['copy']
-		},
 		livereload: {
-			files: ['js/*.min.js', '**/*.php', '**/*.html'], // Watch all files
+			files: ['js/*.min.js', '**/*.php', '**/*.html', '!node_modules/**/*', '!bower_components/**/*'], // Watch all files
 			options: {
 				livereload: true
 			}
@@ -151,6 +123,6 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask( 'handle_js', ['concat_in_order', 'uglify'] );
-
+  grunt.registerTask( 'handle_less', ['less', 'newer:postcss'] );
 };
 
