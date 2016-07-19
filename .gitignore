@@ -3,5 +3,6 @@ node_modules
 bower_components
 plugins
 languages
+uploads
 themes/*
 !themes/lh_base_theme/
