@@ -1,0 +1,47 @@
+.viewport {
+	padding-top: @headerHeight-xs;
+	overflow-x: hidden;
+}
+
+header.main-header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	max-height: @headerHeight-xs;
+	overflow-y: hidden;
+	background-color: #fff;
+	z-index: 999;
+	box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+
+	.trigger-wrapper {
+		padding-right: 0;
+	}
+
+	a {
+		&.logo {
+			display: flex;
+		}
+
+		&.mobile-nav-trigger {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-decoration: none;
+			height: @headerHeight-xs;
+			text-align: center;
+
+			i {
+				flex: 0 0 auto;
+				display: inline-block;
+				font-size: 32px;
+			}
+		}
+
+		img {
+			height: @headerImgHeight-xs;
+			margin: (@headerImgMargin-xs) 0;
+			width: auto;
+		}
+	}
+}

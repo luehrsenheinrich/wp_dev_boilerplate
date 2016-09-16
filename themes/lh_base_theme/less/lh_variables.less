@@ -3,6 +3,7 @@
 @brandColorLight:	lighten(@brandColor, 20%);
 @brandColorDark:	darken(@brandColor, 20%);
 @textColor:			#333;
+@borderColor:		@brandColor;
 
 // Social Media Colors
 @facebookColor: 	#3b5998;
@@ -83,3 +84,14 @@
 @container-large-desktop:      (1140px + @grid-gutter-width);
 //** For `@screen-lg-min` and up.
 @container-lg:                 @container-large-desktop;
+
+
+// Header sizes
+@headerImgHeight-xs: @line-height-target-xs * 2;
+@headerImgMargin-xs: @line-height-target-xs * 1;
+@headerHeight-xs: ( @headerImgHeight-xs ) + ( @headerImgMargin-xs * 2 );
+
+
+@headerImgHeight-sm: @line-height-target-sm * 2;
+@headerImgMargin-sm: @line-height-target-sm * 1;
+@headerHeight-sm: ( @headerImgHeight-sm ) + ( @headerImgMargin-sm * 2 );
